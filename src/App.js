@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from 'react'
+import { Route, Routes } from 'react-router-dom'
 
-function App() {
+import MainPage from './pages/MainPage/MainPage'
+
+import MainPageLayout from './layouts/MainPageLayout'
+
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
+
+import ProductsPage from './pages/ProductsPage/ProductsPage'
+
+import ProfilePage from './pages/ProfilePage/ProfilePage'
+
+import './App.css'
+import { ThemeContext } from './context/Theme/ThemeContext.js'
+
+
+const App = () => {
+  const {theme, setTheme} = useContext(ThemeContext)
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`app ${theme}`}>
+      <Routes>
+        <Route element={<MainPageLayout/>}>
+          <Route path='/' element={<MainPage/>}/>
+          <Route path='/products' element={<ProductsPage/>}/>
+          <Route path='/profile' element={<ProfilePage/>}/>
+        </Route>
+        <Route path='*' element={<NotFoundPage/>}/>
+      </Routes>
+      <button onClick={toggleTheme}>TOGGLE THEME</button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
