@@ -6,9 +6,9 @@ body {
     min-height: 100vh;
 }
 .app.dark {
-background: #10105d;
+background: #070707;
 }
 
 .app.light {
-background: #be9898;
+background: #f9f5f5;
 }
